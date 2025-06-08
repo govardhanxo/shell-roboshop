@@ -6,8 +6,8 @@ INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipp
 ZONE_ID="Z027737329YBJVEFGKUR8"
 DOMAIN_NAME="govardhanxo.site"
 
-#for instance in ${INSTANCES[@]}
-for instance in $@
+for instance in ${INSTANCES[@]}
+#for instance in $@
 do
     INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t2.micro --security-group-ids sg-0437385750f10d4ef --tag-specificaions "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instances[0].InstanceId" --output text)
     if [ $instance != "frontend" ]
@@ -18,3 +18,4 @@ do
     fi
     echo "$instance IP address: $IP"
 done
+
